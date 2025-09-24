@@ -5,7 +5,57 @@ import java.util.Scanner;
 
 // Classe principale, con metodo main
 class Esercizio {
-    // Il programma parte con una chiamata a main().
+    
+    public static Scanner in = new Scanner(System.in);
+    public static int leggiComando() {
+        int scelta;
+        do {
+            System.out.println("1. Inserisci elemento");
+            System.out.println("2. Elimina elemento");
+            System.out.println("3. Ricerca elemento");
+            System.out.println("4. Elimina duplicati");
+            System.out.println("5. Visualizza vettore");
+            System.out.println("6. Esci");
+            scelta = Integer.parseInt(in.nextLine());
+        } while (scelta<1 || scelta>6);
+        return scelta; 
+    }
+
+    public static int ricercaElemento(int[] V, int N, int el) {
+        int idx, i;
+        idx = -1;
+        for (i=0; i<N && idx==-1; ++i) {
+            if (V[i]==el) {
+                idx = i;
+            }
+        }
+        return idx;
+    }
+
+    public static int inserisciElemento(int[] V, int N, int el, int iPos) {
+        int[] W = new int[N+1];
+        int i;
+        for (i=0; i<iPos; ++i) {
+            W[i] = V[i];
+        }
+        W[iPos] = el;
+        for (i=iPos+1; i<N; ++i) {
+            W[i] = V[i-1];
+        }
+        ++N;
+        for (i=0; i<N; ++i) {
+            V[i] = W[i];
+        }
+        return N;
+    }
+    
+    public static void azzeraVettore(int[] V, int N) {
+        for (int i=0; i<N; ++i) {
+            V[i] = 0;
+        }
+    }
+    
+
     public static void main(String args[]) {
         int N, pos, x, i, scelta, indice;
         System.out.println("Inserire la grandezza del vettore: ");
